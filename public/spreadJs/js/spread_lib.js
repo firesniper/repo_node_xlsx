@@ -10,6 +10,13 @@
             (
                 window ,
                 {
+                    "pgp_plugin" :
+                    {
+                        enumerable : false ,
+                        configurable : true ,
+                        writable : true ,
+                        value : {} 
+                    } ,
                     "$workBook" :
                     {
                         enumerable : false ,
@@ -23,11 +30,15 @@
                                 ,
                                 {
                                     // sheetCount : 3,//初始化为3个标签页
-                                    // newTabVisible : true //隐藏新建标签页按钮
+                                    newTabVisible : false //隐藏新建标签页按钮
                                 }
                             ) ;
-                            spread.setSheetCount ( 5 ) ;
-                            spread.startSheetIndex ( 2 ) ;
+                            spread.setSheetCount ( 2 ) ;
+                            spread.startSheetIndex ( 0 ) ;
+                            // spread.options.tabStripVisible = false; 
+                            //Also you can set tabStripVisible to true.
+                            // spread.options.newTabVisible = false; 
+                            //Also you can set newTabVisible to true.
                             return spread ;
                         } ()
                     }

@@ -1,0 +1,25 @@
+
+.r_toolbar{
+    display: -webkit-box ;
+    width : 100% ;
+    height : auto ;
+}
+.r_toolbar:after
+{
+    content : "" ,
+    display : block ,
+    width: 100% ;
+}
+.c_toolbar{
+    display : -webkit-box ;
+    width : 80% ;
+    height: 4rem ;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+.btn_addSheet{
+    display : -webkit-box ;
+    width : auto ;
+    height: 100% ;
+    
+}

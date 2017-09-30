@@ -13,10 +13,24 @@
 
         } ;
     } ;
+
+
+
     var spread_input_actSheet = function ( params ) 
     {
         var pgp_spread = params && params.pgp_spread ? params.pgp_spread : $workBook ;
-        var fn_modifyCellCb = function() {} ;
+        console.log ( "window.pgp_plugin:" , window.pgp_plugin ) ;
+        var AryFn_input_sheet0_cb = window.pgp_plugin.AryFn_input_sheet0_cb  ;
+
+        var toggle_input_sheet0_cb = 
+        { bol : true , any : AryFn_input_sheet0_cb } ;
+
+        var AryFn_input_sheet1_cb = 
+        window.pgp_plugin.AryFn_input_sheet1_cb ;
+        // params && params.AryFn_input_sheet1_cb ? params.AryFn_input_sheet1_cb : null ;
+
+        var toggle_input_sheet1_cb = 
+        { bol : true , any : AryFn_input_sheet1_cb } ;
 
         function fn_actSheetHandle ( params ) 
         {
@@ -104,7 +118,29 @@
 
                         } ;*/
                         // console.log ( "fn_cb:" , fn_cb ) ;
-                        fn_modifyCellCb ( { pgp_activeSheet : pgp_activeSheet } ) ;
+                        if ( toggle_input_sheet0_cb.bol )
+                        {
+                            for ( var ia = 0 ; ia < toggle_input_sheet0_cb.any.length ; ia ++ )
+                            {
+                                toggle_input_sheet0_cb.any [ ia ]
+                                ( 
+                                    { pgp_activeSheet : pgp_activeSheet } 
+                                )
+                            } ;
+
+                        } ;
+                        if ( toggle_input_sheet1_cb.bol )
+                        {
+                            for ( var ib = 0 ; ib < toggle_input_sheet1_cb.any.length ; ib ++ )
+                            {
+                                toggle_input_sheet1_cb.any [ ib ]
+                                ( 
+                                    { pgp_activeSheet : pgp_activeSheet } 
+                                )
+                            } ;
+
+                        } ;
+                        // fn_modifyCellCb ( { pgp_activeSheet : pgp_activeSheet } ) ;
                         /*var str_sec = new Date ().getSeconds().toString ().slice ( -1 ) ;
                         if ( !sessionStorage.getItem ( "toggle" ) || isNaN ( sessionStorage.getItem ( "toggle" ) ) )
                         {
@@ -215,13 +251,21 @@
             
         } ;
         var num_actSheetIdx = pgp_spread.getActiveSheetIndex ( ) ;
-        if ( num_actSheetIdx == 2 ) 
+        if ( num_actSheetIdx == 0 ) 
         { 
-            fn_modifyCellCb = fn_modifyActSheetName ; 
+            toggle_input_sheet0_cb.bol = true ;
         }
         else
         {
-            fn_modifyCellCb = function () {} ;
+            toggle_input_sheet0_cb.bol = false ;
+        } ;
+        if ( num_actSheetIdx == 1 ) 
+        { 
+            toggle_input_sheet1_cb.bol = true ;
+        }
+        else
+        {
+            toggle_input_sheet1_cb.bol = false ;
         } ;
         fn_actSheetHandle 
         ( 
@@ -230,6 +274,7 @@
                 // pgp_activeSheet : pgp_spread.getActiveSheet () 
             } 
         ) ;
+       
         var spreadNS = GC.Spread.Sheets ;
         var Events = spreadNS.Events ;
         pgp_spread.bind 
@@ -241,14 +286,21 @@
                 console.log ( "ActiveSheetChanged args:" , args ) ;
                 var num_actSheetIdx = pgp_spread.getActiveSheetIndex ( ) ;
                 var fn_cb = function () {} ;
-                
-                if ( num_actSheetIdx == 2 ) 
-                {
-                    fn_modifyCellCb = fn_modifyActSheetName ;
+                if ( num_actSheetIdx == 0 ) 
+                { 
+                    toggle_input_sheet0_cb.bol = true ;
                 }
                 else
                 {
-                    fn_modifyCellCb = function () {} ;
+                    toggle_input_sheet0_cb.bol = false ;
+                } ;
+                if ( num_actSheetIdx == 1 ) 
+                { 
+                    toggle_input_sheet1_cb.bol = true ;
+                }
+                else
+                {
+                    toggle_input_sheet1_cb.bol = false ;
                 } ;
                 fn_actSheetHandle 
                 ( 

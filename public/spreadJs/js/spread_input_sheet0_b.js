@@ -1,37 +1,64 @@
 +function ()
 {
-    var spread_input_sheet1 = function ( params ) 
+    var spread_input_sheet0 = function ( params ) 
     {
         var pgp_spread = params && params.pgp_spread ? params.pgp_spread : $workBook ;
         
         
-        var fn_modifyActSheetName = function ( params )
+        var fn_copyCell = function ( params )
         {
             var pgp_activeSheet = params && params.pgp_activeSheet ? params.pgp_activeSheet : $workBook.getActiveSheet () ;
             var pgp_selectCell = params && params.pgp_selectCell ? params.pgp_selectCell : pgp_activeSheet.getCell ( 2 , 1 ) ;
-            if ( pgp_selectCell.text ( ) )
+
+            var ary_srcCell = 
+            [
+                pgp_activeSheet.getCell ( 1 , 1 ) ,
+                pgp_activeSheet.getCell ( 1 , 2 ) 
+            ] ;
+            var ary_destCell = 
+            [
+                $workBook.getSheet ( 1 ).getCell ( 0 , 1 ) ,
+                $workBook.getSheet ( 1 ).getCell ( 0 , 3 ) 
+            ] ;
+            console.log ( "ary_srcCell:" , ary_srcCell ) ;
+            $workBook.getSheet ( 1 ).getCell ( 0 , 1 )
+            .value
+            ( 
+                pgp_activeSheet.getCell ( 1 , 1 ).text () 
+            ) ;
+            // console.log ( "pgp_activeSheet.getCell ( 1 , 2 ).text ():" , pgp_activeSheet.getCell ( 2 , 1 ).text () ) ;
+
+            $workBook.getSheet ( 1 ).getCell ( 0 , 3 )
+            .value
+            ( 
+                pgp_activeSheet.getCell ( 2 , 1 ).text () 
+            ) ;
+            /*if ( pgp_selectCell.text ( ) )
             {
                 pgp_activeSheet.name ( pgp_selectCell.text ( ) ) ;
                 // pgp_activeSheet.Cj = pgp_activeSheet.getValue ( 2 , 0 ) ;
                 localStorage.activeSheetCj = pgp_selectCell.text ( ) ;
 
-            } ;
+            } ;*/
             
 
         } ;
+        // fn_copyCell () ;
         var fn_addSheet = function ( params )
         {
+        var inc_cell = 0 ;
             var pgp_activeSheet = params && params.pgp_activeSheet ? params.pgp_activeSheet : $workBook.getActiveSheet () ;
             var ary_cells = 
             [
-                pgp_activeSheet.getCell ( 2 , 1 ) ,
-                pgp_activeSheet.getCell ( 3 , 1 ) ,
-                pgp_activeSheet.getCell ( 4 , 1 ) ,
-                pgp_activeSheet.getCell ( 5 , 1 ) ,
-                pgp_activeSheet.getCell ( 6 , 1 ) ,
+                pgp_activeSheet.getCell ( 2 , 0 ) ,
+                pgp_activeSheet.getCell ( 3 , 0 ) ,
+                pgp_activeSheet.getCell ( 4 , 0 ) ,
+                pgp_activeSheet.getCell ( 5 , 0 ) ,
+                pgp_activeSheet.getCell ( 6 , 0 ) ,
+                pgp_activeSheet.getCell ( 7 , 0 ) 
             ] ;
             var dom_btn = document.querySelector ( ".btn_addSheet" ) ;
-            var inc_cell = 0 ;
+            
             var inc_sheet = 3 ;
             dom_btn.addEventListener 
             (
@@ -96,44 +123,41 @@
                 localStorage.activeSheetCj = pgp_activeSheet.getValue ( 2 , 0 ) 
             } ;*/
         } ;
-        /*var pgp_plugin = 
-        {
-            AryFn_input_sheet1_cb : 
-            [ 
-                fn_modifyActSheetName , 
-                fn_addSheet 
-            ]
-
-        } ;*/
-        window.pgp_plugin.AryFn_input_sheet1_cb =  
-        [ 
-            fn_modifyActSheetName , 
-            fn_addSheet 
-        ] ;
         /*spread_input_actSheet 
         (
             {
-                pgp_spread : pgp_spread ,
-                AryFn_input_sheet1_cb : 
-                [ 
-                    fn_modifyActSheetName , 
-                    fn_addSheet 
-                ]
-
+                pgp_spread : pgp_spread 
+                
             }
         ) ;*/
+        window.pgp_plugin.AryFn_input_sheet0_cb = 
+        [ 
+            fn_copyCell
+            // , fn_addSheet 
+        ] ;
+        /*var pgp_plugin = 
+        {
+            AryFn_input_sheet0_cb : 
+            [ 
+                fn_copyCell
+                // , fn_addSheet 
+            ]
+
+        } ;
+        window.pgp_plugin = pgp_plugin ;*/
+        // console.log ( "window.pgp_plugin:" , window.pgp_plugin) ;
     } ;
 
     Object.defineProperties
     (
         window ,
         {
-            "spread_input_sheet1" :
+            "spread_input_sheet0" :
             {
                 enumerable : false ,
                 configurable : true ,
                 writable : true ,
-                value : spread_input_sheet1 
+                value : spread_input_sheet0 
             }
         }
     ) ;
