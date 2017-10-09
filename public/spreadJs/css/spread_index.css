@@ -1,0 +1,57 @@
+
+.html {
+    font-size : 16.25%
+}
+.r_toolbar{
+    display: -webkit-box ;
+    width : 100% ;
+    height : auto 
+}
+.r_toolbar:after {
+    content : "" ;
+    display : block ;
+    width: 100% ;
+}
+.c_toolbar{
+    display : -webkit-box ;
+    width : 80% ;
+    height: 4rem ;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+.btn_addSheet{
+    display : -webkit-box ;
+    width : auto ;
+    height: 1rem ;
+    font-size: 1rem;
+    padding: .3rem ;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1rem;
+    margin-right: 1rem;
+
+}
+.btn_exportExcel{
+    display : -webkit-box ;
+    width : auto ;
+    height: 1rem ;
+    font-size: 1rem;
+    padding: .3rem ;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1rem;
+}
+.btn_a01 {
+    cursor : pointer ;
+    background : gray ;
+    color : white ;
+
+}
+.btn_a01:hover {
+    border : 1px solid gray ;
+    background : none ;
+    color : gray 
+}
+.downloadExcel{
+    display:none
+}
